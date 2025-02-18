@@ -1,0 +1,460 @@
+/**
+ * ============================================================================
+ * SKKPD Student Data Management System
+ 
+ * Description: Comprehensive styling system for student data cards and modals
+ * Features: Responsive design, modern UI, animations, and interactions
+ * ============================================================================
+ */
+
+/* ==========================================================================
+    * 1. CORE SYSTEM VARIABLES
+    * Description: Global variables for consistent theming across components
+    * ========================================================================== */
+:root {
+  /* Color System - Brand & State Colors */
+  --primary: #1a237e;
+  --secondary: #283593;
+  --success: #2e7d32;
+  --warning: #ff8f00;
+  --danger: #c62828;
+
+  /* Animation Timing System */
+  --transition-fast: 0.2s;
+  --transition-normal: 0.3s;
+  --transition-slow: 0.8s;
+
+  /* Elevation System */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+/* body{
+        font-family: 'Ubuntu', sans-serif;
+        
+    } */
+/* ==========================================================================
+    * 2. ANIMATION SYSTEM
+    * Description: Keyframe definitions for various component animations
+    * ========================================================================== */
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+    * 3. CARD COMPONENT SYSTEM
+    * Description: Styles for the main student data cards
+    * ========================================================================== */
+.hover-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow var(--transition-slow) ease;
+  animation: cardEntrance 0.5s ease-out forwards;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px) scale(1.005);
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* ==========================================================================
+    * 4. HEADER COMPONENT SYSTEM
+    * Description: Styles for card and modal headers
+    * ========================================================================== */
+/* .text-siswa{
+        font-size: 1.1rem;
+    } */
+
+.custom-header {
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  position: relative;
+  overflow: hidden;
+}
+
+.header-avatar-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.header-avatar {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  transition: transform var(--transition-normal) ease;
+}
+
+.header-avatar:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+.subtitle .badge {
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 0.35em 0.8em;
+}
+
+/* ========== Text & Content ========== */
+/* Email Text Styling */
+.email-text {
+  font-size: 0.95rem;
+  color: #2c3e50;
+  line-height: 1.5;
+  padding: 0.25rem 0;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.email-text:hover {
+  color: #1a73e8;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.email-text::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, #1a73e8, transparent);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.email-text:hover::after {
+  transform: scaleX(1);
+}
+
+/* For very long emails */
+@media (max-width: 768px) {
+  .email-text {
+    font-size: 0.9rem;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* ==========================================================================
+    * 5. BUTTON COMPONENT SYSTEM
+    * Description: Styles for various button types
+    * ========================================================================== */
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  transition: all var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-sm:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-sm:active {
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+    * 6. MODAL COMPONENT SYSTEM
+    * Description: Styles for the detail view modal
+    * ========================================================================== */
+
+.modal-dialog {
+  max-width: 500px;
+  margin: 1.75rem auto;
+}
+
+.modal-content {
+  border-radius: 15px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow-lg);
+}
+
+/* Modal Header */
+.modal-custom-header {
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-custom-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at top right,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 90%
+  );
+}
+
+.modal-avatar-wrapper {
+  position: relative;
+  z-index: 2;
+}
+
+.modal-avatar {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  transition: transform var(--transition-normal) ease;
+}
+
+.modal-avatar:hover {
+  transform: scale(1.05) rotate(5deg);
+}
+
+/* Modal Title */
+.modal-title {
+  color: white;
+  font-size: 1.25rem;
+  margin-bottom: 0.25rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.modal-subtitle .badge {
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 0.35em 0.8em;
+  backdrop-filter: blur(4px);
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 1.5rem;
+}
+
+.detail-group {
+  margin-bottom: 1.25rem;
+}
+
+.detail-label {
+  color: #6c757d;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.detail-value {
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+/* Modal Footer */
+.modal-footer {
+  padding: 1rem 1.5rem;
+  background: #f8f9fa;
+}
+
+/* Modal Animations */
+.modal.fade .modal-dialog {
+  transform: scale(0.9) translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.modal.show .modal-dialog {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Backdrop Style */
+.modal-backdrop.show {
+  opacity: 0.7;
+  backdrop-filter: blur(4px);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 0.5rem;
+  }
+
+  .modal-custom-header {
+    padding: 1.25rem;
+  }
+
+  .modal-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+  }
+
+  .modal-body,
+  .modal-footer {
+    padding: 1rem;
+  }
+
+  .detail-group {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .modal-dialog {
+    max-width: 450px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .modal-dialog {
+    max-width: 480px;
+  }
+}
+
+/* ==========================================================================
+    * 7. RESPONSIVE DESIGN SYSTEM
+    * Description: Breakpoint-specific styles for all screen sizes
+    * ========================================================================== */
+@media (min-width: 2560px) {
+  .header-avatar,
+  .modal-avatar {
+    width: 90px;
+    height: 90px;
+    font-size: 2.5rem;
+  }
+
+  .custom-header,
+  .modal-custom-header {
+    padding: 2rem;
+  }
+
+  .subtitle .badge {
+    font-size: 1rem;
+    padding: 0.5em 1em;
+  }
+}
+
+/* Desktop XL */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .header-avatar,
+  .modal-avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 2rem;
+  }
+
+  .custom-header,
+  .modal-custom-header {
+    padding: 1.75rem;
+  }
+
+  .subtitle .badge {
+    font-size: 0.95rem;
+  }
+}
+
+/* Desktop Large */
+@media (min-width: 1400px) and (max-width: 1919px) {
+  .header-avatar,
+  .modal-avatar {
+    width: 60px;
+    height: 60px;
+    font-size: 1.75rem;
+  }
+
+  .custom-header,
+  .modal-custom-header {
+    padding: 1.5rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 992px) and (max-width: 1399px) {
+  .header-avatar,
+  .modal-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .custom-header,
+  .modal-custom-header {
+    padding: 1.25rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+  .header-avatar,
+  .modal-avatar {
+    width: 45px;
+    height: 45px;
+    font-size: 1.25rem;
+  }
+
+  .custom-header,
+  .modal-custom-header {
+    padding: 1.25rem;
+  }
+
+  .subtitle .badge {
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  .header-avatar,
+  .modal-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  .custom-header,
+  .modal-custom-header {
+    padding: 1rem;
+  }
+
+  .subtitle .badge {
+    font-size: 0.75rem;
+    padding: 0.25em 0.6em;
+  }
+}
+
+/* ========== Print Media ========== */
+@media print {
+  .hover-card {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
+  .btn-sm {
+    display: none;
+  }
+}

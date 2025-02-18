@@ -1,0 +1,183 @@
+/**
+ * My SKKPD Form Styling 
+ * 
+ */
+
+/* ========================================
+   Core Variables
+   ======================================== */
+:root {
+  /* Colors */
+  --primary-gradient: linear-gradient(45deg, #1a237e, #283593);
+  --form-bg: #ffffff;
+  --input-border: #dee2e6;
+  --input-focus: #86b7fe;
+
+  /* Animations */
+  --transition-fast: 0.2s;
+  --transition-normal: 0.3s;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* ========================================
+   Form Card Styling
+   ======================================== */
+.form-card {
+  border-radius: 15px;
+  overflow: hidden;
+  /* transition: all var(--transition-normal) ease; */
+}
+
+.form-card:hover {
+  /* transform: translateY(-5px); */
+  box-shadow: var(--shadow-md);
+}
+
+/* Header Styling */
+.card-header.bg-gradient {
+  background: var(--primary-gradient) !important;
+}
+
+.header-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-icon i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+/* ========================================
+   Form Controls
+   ======================================== */
+.form-floating {
+  margin-bottom: 1.5rem;
+}
+
+.custom-input {
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  /* transition: all var(--transition-fast) ease; */
+}
+
+.custom-input:focus {
+  border-color: var(--input-focus);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* ========================================
+   Button Styling
+   ======================================== */
+.btn {
+  font-weight: 500;
+  /* transition: all var(--transition-fast) ease; */
+}
+
+.back-button:hover {
+  background: #e9ecef;
+  transform: translateX(-3px);
+}
+
+.submit-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ========================================
+   Responsive Design System
+   ======================================== */
+/* 4K Displays */
+@media (min-width: 2560px) {
+  .container {
+    max-width: 2400px;
+  }
+
+  .form-card {
+    max-width: 1800px;
+    margin: 0 auto;
+  }
+}
+
+/* Large Desktops */
+@media (min-width: 1920px) and (max-width: 2559px) {
+  .container {
+    max-width: 1800px;
+  }
+
+  .card-body {
+    padding: 2.5rem;
+  }
+}
+
+/* Standard Desktops */
+@media (min-width: 1400px) and (max-width: 1919px) {
+  .container {
+    max-width: 1320px;
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+}
+
+/* Small Desktops */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .card-body {
+    padding: 1.75rem;
+  }
+}
+
+/* Tablets */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .form-floating {
+    margin-bottom: 1.25rem;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 767px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .form-floating {
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Small Mobile Devices */
+@media (max-width: 576px) {
+  .container {
+    padding: 0.75rem;
+  }
+
+  .header-icon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .header-icon i {
+    font-size: 1.25rem;
+  }
+}
