@@ -485,25 +485,50 @@ if (isset($_GET['page'])) {
                         </a>
 
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
-                            <!-- <li>
-                                <a class="dropdown-item" href="dashboard.php?page=profile">
-                                    <i class="bi bi-person me-2"></i> Profile
-                                </a>
-                            </li> -->
-                            <li class="operator">
-                                <a class="dropdown-item" href="dashboard.php?page=operator" style="transition: all 0.2s ease;">
-                                    <i class="bi bi-gear me-2"></i> Operator
-                                </a>
-                            </li>
+                            <!-- Profile Section -->
+                            <div class="px-3 py-2 mb-2">
+                                <h6 class="dropdown-header text-muted mb-0">Signed in as</h6>
+                                <p class="text-primary mb-0 fw-semibold"><?= $_COOKIE['Nama_Lengkap'] ?></p>
+                            </div>
+
+                            <!-- Divider -->
                             <li>
-                                <hr class="dropdown-divider">
+                                <hr class="dropdown-divider mx-2">
                             </li>
+
+                            <!-- Account Management Section -->
+                            <?php if ($_COOKIE['level_user'] == 'operator'): ?>
+                                <!-- Operator Profile Edit Option -->
+                                <li class="operator">
+                                    <a class="dropdown-item d-flex align-items-center" href="dashboard.php?page=operator">
+                                        <i class="bi bi-gear me-2"></i>
+                                        <span>Edit Profil</span>
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <!-- Regular User Password Change Option -->
+                                <li class="operator">
+                                    <a class="dropdown-item d-flex align-items-center" href="dashboard.php?page=operator">
+                                        <i class="bi bi-key me-2"></i>
+                                        <span>Ganti Password</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+                            <!-- Divider before logout -->
                             <li>
-                                <a class="dropdown-item text-danger" href="../logout.php">
-                                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                                <hr class="dropdown-divider ">
+                            </li>
+
+                            <!-- Logout Option -->
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center text-danger" href="../logout.php">
+                                    <i class="bi bi-box-arrow-right me-2"></i>
+                                    <span>Logout</span>
                                 </a>
                             </li>
                         </ul>
+
                     </li>
                 </ul>
 
