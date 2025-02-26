@@ -1,99 +1,105 @@
 # SKKPD - Sistem Kredit Kegiatan Peserta Didik
 
-## Overview
+## Deskripsi
 
-SKKPD adalah sistem penilaian kegiatan peserta didik berbasis poin yang dirancang untuk SMK TI Bali Global Denpasar. Sistem ini bertujuan untuk meningkatkan soft skills, kesiapan kerja, dan jiwa wirausaha siswa melalui berbagai kegiatan terstruktur.
+SKKPD adalah sistem manajemen penilaian berbasis poin untuk kegiatan peserta didik di SMK TI Bali Global Denpasar. Sistem ini dirancang untuk memantau dan mengevaluasi keterlibatan siswa dalam berbagai kegiatan non-akademik dengan target 30 poin dalam masa studi 3 tahun.
 
-## Features
+## Fitur Utama
 
-- 🎯 Manajemen Poin Kegiatan
-- 👥 Pengelolaan Data Siswa
-- 📚 Kategorisasi Kegiatan
-- 📊 Tracking Progress Siswa
-- 🏆 Manajemen Sertifikat
+- 🎯 Manajemen Poin & Sertifikat Kegiatan
+- 👥 Pengelolaan Data Siswa & Operator
+- 📚 Manajemen Kategori & Sub-kategori Kegiatan
+- 📊 Dashboard Monitoring Progress
+- 🔐 Multi-level User Authentication (Operator & Siswa)
 
-## System Requirements
+## Persyaratan Sistem
 
-- PHP 7.4 or higher
-- MySQL 5.7 or higher
-- Apache/Nginx web server
-- Modern web browser
+- PHP versi 7.4 ke atas
+- MySQL versi 5.7 ke atas
+- Web Server Apache/Nginx
+- Browser modern (Chrome, Firefox, Safari, Edge)
 
-## Installation
+## Panduan Instalasi
 
-1. Clone repository:
-
+1. Clone repositori ini:
 ```bash
 git clone https://github.com/yourusername/skkpd.git
 ```
 
 2. Import database:
-
 ```bash
-mysql -u username -p database_name < database/skkpd.sql
+mysql -u username -p nama_database < database/skkpd.sql
 ```
 
-3. Configure database connection:
-
-- Edit `koneksi.php` with your database credentials
-
+3. Konfigurasi database:
+Edit file `koneksi.php`:
 ```php
-$koneksi = mysqli_connect("localhost", "username", "password", "database_name");
+$koneksi = mysqli_connect("localhost", "username", "password", "nama_database");
 ```
 
-4. Set up web server:
-
-- Point your web server to the project directory
-- Ensure proper permissions are set
-
-## Project Structure
+## Struktur Direktori
 
 ```
 skkpd/
-├── bootstrap/
-│   └── bootstrap.css
-├── css/
-├── images/
-├── tambah/
-├── ubah/
-├── tampilan/
-├── koneksi.php
-├── login.php
-└── README.md
+├── bootstrap/          # File CSS Bootstrap
+├── css/               # File CSS kustom
+├── gambar/            # Aset gambar & file upload
+├── tambah/            # Form penambahan data
+├── ubah/              # Form edit data
+├── tampilan/          # Halaman utama
+├── koneksi.php        # Konfigurasi database
+├── login.php          # Halaman login
+└── README.md          # Dokumentasi
 ```
 
-## Modules
+## Modul Sistem
 
-1. **Siswa Management**
+### 1. Manajemen Siswa
+- Pendaftaran siswa baru
+- Update data siswa
+- Manajemen kelas & jurusan
+- Monitoring poin kegiatan
 
-   - CRUD operations for student data
-   - View student activities and points
+### 2. Manajemen Kegiatan
+- Kategori & sub-kategori kegiatan
+- Alokasi poin per kegiatan
+- Upload & validasi sertifikat
+- Status validasi sertifikat
 
-2. **Kegiatan Management**
+### 3. Manajemen User
+- Multi-level user (Operator & Siswa)
+- Manajemen akun operator
+- Ganti password
+- Riwayat login
 
-   - Manage activity categories
-   - Track student participation
-   - Point allocation
+## Penggunaan
 
-3. **User Management**
-   - Operator access control
-   - Student login system
-   - Role-based permissions
+### Login Operator
+- Username: [username operator]
+- Akses ke semua fitur manajemen
+- Validasi sertifikat
+- Pengelolaan master data
 
-## Contributing
+### Login Siswa
+- Login menggunakan NIS
+- Upload sertifikat kegiatan
+- Monitoring poin
+- Update profil & password
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+## Kontribusi
 
-## License
+1. Fork repositori
+2. Buat branch fitur (`git checkout -b fitur/FiturBaru`)
+3. Commit perubahan (`git commit -m 'Menambahkan fitur baru'`)
+4. Push ke branch (`git push origin fitur/FiturBaru`)
+5. Buat Pull Request
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Lisensi
 
-## Acknowledgments
+Proyek ini dilisensikan di bawah MIT License - lihat file LICENSE untuk detail.
+
+## Credit
 
 - SMK TI Bali Global Denpasar
-- Bootstrap Team
-- Contributors and Maintainers
+- Tim Pengembang
+- Kontributor & Pemelihara
