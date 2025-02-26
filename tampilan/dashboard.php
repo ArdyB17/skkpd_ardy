@@ -283,7 +283,7 @@ if (isset($_GET['page'])) {
         // Different landing pages based on user role
         if ($_COOKIE['level_user'] == 'operator') {
             // Operator Landing Page Content (existing content)
-        ?>
+    ?>
             <!-- Landing Page Content for Operator -->
             <main>
                 <!-- Enhanced Hero Section -->
@@ -391,7 +391,7 @@ if (isset($_GET['page'])) {
                         $valid_certs = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM sertifikat WHERE NIS='$nis' AND Status='Valid'"));
                         $invalid_certs = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM sertifikat WHERE NIS='$nis' AND Status='Tidak Valid'"));
                         $pending_certs = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM sertifikat WHERE NIS='$nis' AND Status='Menunggu'"));
-                        
+
                         $stat_cards = [
                             ['title' => 'Sertifikat Valid', 'count' => $valid_certs, 'icon' => 'check-circle-fill', 'color' => 'success'],
                             ['title' => 'Menunggu Validasi', 'count' => $pending_certs, 'icon' => 'clock-fill', 'color' => 'warning'],
@@ -427,58 +427,93 @@ if (isset($_GET['page'])) {
             </main>
 
             <style>
-            .dashboard-main {
-                background: #f8f9fa;
-            }
+                .dashboard-main {
+                    background: #f8f9fa;
+                }
 
-            .stats-icon {
-                width: 60px;
-                height: 60px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+                .stats-icon {
+                    width: 60px;
+                    height: 60px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
 
-            .hover-card {
-                transition: transform 0.2s;
-            }
+                .hover-card {
+                    transition: transform 0.2s;
+                }
 
-            .hover-card:hover {
-                transform: translateY(-5px);
-            }
+                .hover-card:hover {
+                    transform: translateY(-5px);
+                }
 
-            .custom-header {
-                background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-                padding: 1.5rem;
-                border-radius: 0.5rem 0.5rem 0 0;
-            }
+                .custom-header {
+                    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+                    padding: 1.5rem;
+                    border-radius: 0.5rem 0.5rem 0 0;
+                }
 
-            .header-avatar-wrapper {
-                width: 60px;
-                height: 60px;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.1);
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
+                .header-avatar-wrapper {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.1);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
 
-            .header-avatar {
-                width: 100%;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 1.5rem;
-                font-weight: bold;
-                color: white;
-            }
+                .header-avatar {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    color: white;
+                }
             </style>
-        <?php
+    <?php
         }
     }
     ?>
+    <!-- Modern Footer -->
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <div class="row align-items-center justify-content-center text-center">
+                <div class="col-12">
+                    <p class="mb-0 text-muted">
+                        <small>
+                            &copy; <?php echo date('Y'); ?> SKKPD SMK TI Bali Global Denpasar
+                            <span class="mx-1">•</span>
+                            Dikembangkan oleh Ardy Berata
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
+    <style>
+        .footer {
+            background: #f8f9fa;
+            border-top: 1px solid rgba(0, 0, 0, .05);
+            font-size: 0.9rem;
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 1rem 0;
+            }
+
+            .footer p {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
     <!-- Scripts -->
     <script src="../bootstrap/bootstrap.js"></script>
 </body>
