@@ -69,22 +69,22 @@ if (isset($_POST['tombol_update'])) {
                         <!-- Kategori Selection -->
                         <!-- Kategori Display -->
                         <div class="form-floating mb-3">
-                            <input type="text" 
-                                class="form-control" 
-                                value="<?= htmlspecialchars($data_kegiatan['Kategori']) ?>" 
+                            <input type="text"
+                                class="form-control"
+                                value="<?= htmlspecialchars($data_kegiatan['Kategori']) ?>"
                                 readonly>
-                            <input type="hidden" name="kategori" 
+                            <input type="hidden" name="kategori"
                                 value="<?= htmlspecialchars($data_kegiatan['Kategori']) ?>">
                             <label>Kategori</label>
                         </div>
 
                         <!-- Sub Kategori Display -->
                         <div class="form-floating mb-3">
-                            <input type="text" 
-                                class="form-control" 
-                                value="<?= htmlspecialchars($data_kegiatan['Sub_Kategori']) ?>" 
+                            <input type="text"
+                                class="form-control"
+                                value="<?= htmlspecialchars($data_kegiatan['Sub_Kategori']) ?>"
                                 readonly>
-                            <input type="hidden" name="sub_kategori" 
+                            <input type="hidden" name="sub_kategori"
                                 value="<?= htmlspecialchars($data_kegiatan['Sub_Kategori']) ?>">
                             <label>Sub Kategori</label>
                         </div>

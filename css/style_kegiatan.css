@@ -1,0 +1,72 @@
+/* Core Variables */
+:root {
+    --primary-gradient: linear-gradient(45deg, #1a237e, #283593);
+    --form-bg: #ffffff;
+    --input-border: #dee2e6;
+    --input-focus: #86b7fe;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Form Card Styling */
+.form-card {
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+/* Header Styling */
+.card-header.bg-gradient {
+    background: var(--primary-gradient) !important;
+}
+
+.header-icon {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-icon i {
+    font-size: 1.5rem;
+    color: white;
+}
+
+/* Form Controls */
+.form-floating {
+    margin-bottom: 1.5rem;
+}
+
+.custom-input {
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+}
+
+.custom-input:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Button Styling - Keeping hover effects */
+.btn {
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background: #e9ecef;
+    transform: translateX(-3px);
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Responsive Design System remains unchanged */
+@media (min-width: 2560px) {
+    /* ...existing media queries... */
+}

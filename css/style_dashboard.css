@@ -16,46 +16,52 @@ body {
   --light-bg: #f8fafc;
 }
 
-
 /* Modern Navbar Styles */
-
 .navbar-brand {
   color: var(--primary-color);
-  transition: transform 0.3s ease;
-  margin-right: 4rem;
+  transition: all 0.3s ease;
+  margin-right: 2rem;
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
 }
 
 .brand-text {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary-color);
-}
-
-.navbar-brand:hover {
-  transform: translateY(-2px);
-}
-
-.navbar-nav {
-  gap: 0.75rem;
-}
-
-.nav-link {
-  font-size: 1rem;
-  font-weight: 500;
-  color: #4b5563 !important;
-  padding: 0.75rem 1.25rem;
-  border-radius: 10px;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.nav-link:hover {
-  color: #fff !important;
   background: linear-gradient(
     135deg,
     var(--primary-color),
     var(--secondary-color)
   );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.navbar-brand:hover {
+  background: rgba(37, 99, 235, 0.1);
+  transform: translateY(-2px);
+}
+
+.navbar-nav {
+  gap: 0.5rem;
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #64748b !important;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-link:hover {
+  color: var(--primary-color) !important;
+  background: rgba(37, 99, 235, 0.1);
   transform: translateY(-1px);
 }
 
@@ -66,22 +72,16 @@ body {
     var(--primary-color),
     var(--secondary-color)
   );
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
-.nav-link.active::before {
-  content: "";
-  position: absolute;
-  bottom: -3px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--secondary-color)
-  );
+.nav-link i {
+  font-size: 1.1rem;
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover i {
+  transform: scale(1.1);
 }
 
 /* Profile Dropdown Styles */
@@ -95,6 +95,16 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   padding: 0.75rem;
   min-width: 200px;
+}
+
+/* .operator .dropdown-item {
+        color: greenyellow;
+    } */
+
+.operator .dropdown-item:hover {
+  color: var(--primary-color) !important;
+  background: rgba(37, 99, 235, 0.1);
+  transform: translate3d(4px, 0, 0);
 }
 
 .dropdown-item {
@@ -202,4 +212,215 @@ body {
     padding: 0.5rem;
     margin-top: 0.5rem;
   }
+}
+
+/************************************
+  * Enhanced Landing Page Styles
+  * Added for improved UI/UX 
+  ************************************/
+
+/* Hero Section Enhancements */
+.min-vh-75 {
+  min-height: 75vh;
+}
+
+.hero-section {
+  position: relative;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  overflow: hidden;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+/* About SKKPD Section Styles */
+.py-6 {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.info-card {
+  transition: all 0.3s ease;
+  border-radius: 16px;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon-sm {
+  width: 48px;
+  height: 48px;
+  background: rgba(37, 99, 235, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+/* Badge Styles */
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Card Hover Effects */
+.info-card {
+  background: white;
+}
+
+.info-card:hover .feature-icon-sm {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Section Typography */
+h6.text-primary {
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 0.875rem;
+}
+
+.lead {
+  font-size: 1.15rem;
+  line-height: 1.7;
+}
+
+/* Category Section Styles */
+.category-card {
+  border-radius: 16px;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+}
+
+.category-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.category-list {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.category-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.category-list li:last-child {
+  border-bottom: none;
+}
+
+/* Objectives Grid Improvements */
+.objectives-grid .info-card {
+  height: 100%;
+}
+
+.objectives-grid .card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.objectives-grid .feature-icon-sm {
+  margin-bottom: 1.25rem;
+}
+
+/* Enhanced Typography */
+.lead {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #475569;
+}
+
+/************************************
+ * Mobile Navbar Enhancements
+ * Added for better responsive behavior
+ ************************************/
+
+/* Improved Mobile Dropdown Styles */
+@media (max-width: 767.98px) {
+  /* Ensure username is always visible */
+  .nav-item.dropdown .d-none.d-sm-inline {
+    display: inline !important;
+  }
+
+  /* Better spacing for mobile dropdown */
+  .navbar-nav .dropdown-menu {
+    margin-top: 0.5rem;
+    width: 100%;
+    min-width: auto;
+  }
+
+  /* Improve navbar collapse spacing */
+  .navbar-collapse {
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+  }
+
+  /* Better alignment for mobile user menu */
+  .navbar-nav.ms-auto {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  /* Improve user dropdown button layout */
+  .nav-link.dropdown-toggle {
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Keep icon and text aligned */
+  .nav-link.dropdown-toggle .bi {
+    margin-right: 0.5rem;
+  }
+}
+
+/* Extra Small Device Optimizations */
+@media (max-width: 575.98px) {
+  /* Ensure dropdown button remains properly spaced */
+  .navbar-nav .nav-item.dropdown {
+    margin-left: 0;
+  }
+
+  /* Prevent text wrapping in user name */
+  .nav-link.dropdown-toggle {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  /* Improve dropdown menu positioning */
+  .dropdown-menu-end {
+    right: 0;
+    left: 0;
+  }
+}
+
+/* Prevent navbar content overflow */
+.navbar .container {
+  position: relative;
+}
+
+/* Enhance dropdown visibility */
+.dropdown-toggle::after {
+  margin-left: auto;
 }

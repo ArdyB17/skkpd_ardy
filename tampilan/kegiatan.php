@@ -102,9 +102,15 @@ if (isset($_GET['Id_Kegiatan'])) {
 
                                         <tr class='category-header'>
                                             <td colspan='4' class='py-3 px-4'>
-                                                <div class='d-flex align-items-center'>
-                                                    <i class='bi bi-bookmark-fill me-2 text-primary fs-5'></i>
-                                                    <span class='fw-semibold fs-5'><?php echo htmlspecialchars($baris['Sub_Kategori']); ?></span>
+                                                <div class='d-flex align-items-center justify-content-between'>
+                                                    <div class='d-flex align-items-center'>
+                                                        <i class='bi bi-bookmark-fill me-2 text-primary fs-5'></i>
+                                                        <span class='fw-semibold fs-5'><?php echo htmlspecialchars($baris['Sub_Kategori']); ?></span>
+                                                    </div>
+                                                    <a href="dashboard.php?page=ubah_sub_kategori&Id_Kategori=<?= htmlspecialchars($baris['Id_Kategori']) ?>"
+                                                        class="btn btn-outline-primary btn-sm">
+                                                        <i class="bi bi-pencil-square me-1"></i>Edit Sub Kategori
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -114,7 +120,11 @@ if (isset($_GET['Id_Kegiatan'])) {
                                     }
                                     ?>
                                     <tr>
-                                        <td class="text-center"><?php echo $no++; ?></td>
+                                        <td class="px-4 py-3 text-center">
+                                            <span class="badge bg-dark-subtle text-dark rounded-pill px-3 py-2 fs-6">
+                                                <?php echo $no++; ?>
+                                            </span>
+                                        </td>
                                         <td><?php echo htmlspecialchars($baris['Jenis_Kegiatan']); ?></td>
                                         <td>
                                             <span class="badge bg-primary px-3 py-2 fs-6">

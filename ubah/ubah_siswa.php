@@ -18,7 +18,7 @@ if (isset($_POST['tombol_update'])) {
     $id_jurusan = htmlspecialchars($_POST['id_jurusan']);
     $kelas = htmlspecialchars($_POST['Kelas']);
     $angkatan = htmlspecialchars($_POST['Angkatan']);
-    $password = htmlspecialchars($_POST['Password']);
+    $password = htmlspecialchars($_POST['password']);
     $konfirmasi_password = htmlspecialchars($_POST['konfirmasi_password']);
 
     if ($password == NULL) {
@@ -59,10 +59,11 @@ if (isset($_POST['tombol_update'])) {
                     Email = '$email',
                     Id_Jurusan = '$id_jurusan',
                     Kelas = '$kelas',
-                    Angkatan = '$angkatan',
+                    Angkatan = '$angkatan'
                 WHERE NIS = '$nis'"
-
             );
+
+
 
             $enkrip = password_hash($password, PASSWORD_DEFAULT);
             $hasil_pengguna = mysqli_query($koneksi, "UPDATE pengguna SET Password = '$enkrip' WHERE NIS = '$nis'");
@@ -170,14 +171,16 @@ if (isset($_POST['tombol_update'])) {
                                 </div>
 
                                 <div class="form-floating mb-3">
-                                    <select class="form-select" id="jurusanSelect"
-                                        name="id_jurusan" required>
+                                    <select class="form-select" id="jurusanSelect" name="id_jurusan" required>
                                         <?php
                                         $query_jurusan = mysqli_query($koneksi, "SELECT * FROM jurusan");
                                         while ($jurusan = mysqli_fetch_assoc($query_jurusan)) {
                                             $selected = ($jurusan['Id_Jurusan'] == $data_update['Id_Jurusan']) ? 'selected' : '';
-                                            echo "<option value='" . $jurusan['Id_Jurusan'] . "' $selected>"
-                                                . $jurusan['Jurusan'] . "</option>";
+                                        ?>
+                                            <option value="<?php echo $jurusan['Id_Jurusan']; ?>" <?php echo $selected; ?>>
+                                                <?php echo $jurusan['Jurusan']; ?>
+                                            </option>
+                                        <?php
                                         }
                                         ?>
                                     </select>

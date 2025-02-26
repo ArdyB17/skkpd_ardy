@@ -87,7 +87,7 @@ if (isset($_GET['page'])) {
 </head>
 
 <style>
-    <?php include '../css/style_dashboard.css'; ?><?php include '../css/style_dashboard_siswa.css'; ?>
+    <?php include '../css/style_dashboard.css'; ?>
 </style>
 
 <body>
@@ -283,7 +283,7 @@ if (isset($_GET['page'])) {
         // Different landing pages based on user role
         if ($_COOKIE['level_user'] == 'operator') {
             // Operator Landing Page Content (existing content)
-    ?>
+        ?>
             <!-- Landing Page Content for Operator -->
             <main>
                 <!-- Enhanced Hero Section -->
@@ -328,8 +328,7 @@ if (isset($_GET['page'])) {
                 <div class="container">
                     <!-- Profile Section -->
                     <div class="row justify-content-center mb-4">
-                        <div class="col-12 col-lg-8">
-
+                        <div class="col-12 col-lg-10">
                             <div class="card h-100 border-0 shadow-sm hover-card">
                                 <div class="card-header custom-header border-0">
                                     <div class="d-flex align-items-center">
@@ -339,18 +338,22 @@ if (isset($_GET['page'])) {
                                             </div>
                                         </div>
                                         <div class="ms-3 text-white">
-                                            <h4 class="mb-1 fw-bold"><?php echo $_COOKIE['Nama_Lengkap']; ?></h4>
-                                            <div class="subtitle d-flex align-items-center">
-                                                <i class="bi bi-person-badge me-2"></i>
+                                            <h5 class="mb-1 fw-bold"><?php echo $_COOKIE['Nama_Lengkap']; ?></h5>
+                                            <div class="subtitle">
                                                 <span class="badge bg-light bg-opacity-25 border-0">
                                                     NIS: <?php echo $_COOKIE['NIS']; ?>
                                                 </span>
                                             </div>
                                         </div>
+                                        <div class="ms-auto text-white">
+                                            <h3 class="mb-0 fw-bold">15</h3>
+                                            <small class="text-white-50">Total Poin SKKPd</small>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <?php
+                                // Fetch student data
                                 $nis = $_COOKIE['NIS'];
                                 $query = mysqli_query($koneksi, "SELECT siswa.*, jurusan.Jurusan 
                                                                FROM siswa 
@@ -360,68 +363,24 @@ if (isset($_GET['page'])) {
                                 ?>
 
                                 <div class="card-body">
-                                    <div class="row g-4">
+                                    <div class="row g-3">
                                         <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <i class="bi bi-person-vcard me-2 text-primary"></i>
-                                                    <p class="text-muted mb-0 fw-medium">No. Absen</p>
-                                                </div>
-                                                <p class="fw-bold mb-0"><?php echo $siswa['No_Absen']; ?></p>
-                                            </div>
+                                            <p class="text-muted mb-1">No. Absen</p>
+                                            <p class="fw-medium mb-3"><?php echo $siswa['No_Absen']; ?></p>
 
-                                            <div class="mb-3">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <i class="bi bi-telephone me-2 text-primary"></i>
-                                                    <p class="text-muted mb-0 fw-medium">No. Telp</p>
-                                                </div>
-                                                <p class="fw-bold mb-0"><?php echo $siswa['No_Telp']; ?></p>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <i class="bi bi-envelope me-2 text-primary"></i>
-                                                    <p class="text-muted mb-0 fw-medium">Email</p>
-                                                </div>
-                                                <p class="fw-bold mb-0"><?php echo $siswa['Email']; ?></p>
-                                            </div>
+                                            <p class="text-muted mb-1">Email</p>
+                                            <p class="fw-medium mb-3"><?php echo $siswa['Email']; ?></p>
                                         </div>
-
                                         <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <i class="bi bi-building me-2 text-primary"></i>
-                                                    <p class="text-muted mb-0 fw-medium">Jurusan</p>
-                                                </div>
-                                                <h5 class="mb-0">
-                                                    <span class="badge bg-primary"><?php echo $siswa['Jurusan']; ?> <?php echo $siswa['Kelas']; ?></span>
-                                                </h5>
-                                            </div>
+                                            <p class="text-muted mb-1">Jurusan</p>
+                                            <span class="badge bg-info mb-3"><?php echo $siswa['Jurusan']; ?> <?php echo $siswa['Kelas']; ?></span>
 
-                                            <div class="mb-3">
-                                                <div class="d-flex align-items-center mb-2">
-                                                    <i class="bi bi-calendar3 me-2 text-primary"></i>
-                                                    <p class="text-muted mb-0 fw-medium">Angkatan</p>
-                                                </div>
-                                                <p class="fw-bold mb-0"><?php echo $siswa['Angkatan']; ?></p>
-                                            </div>
-
-                                            <div class="credit-points-card p-3 bg-primary bg-opacity-10 rounded-3">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="me-3">
-                                                        <i class="bi bi-award-fill text-primary fs-3"></i>
-                                                    </div>
-                                                    <div>
-                                                        <h4 class="mb-0 fw-bold text-primary">15 Poin</h4>
-                                                        <p class="mb-0 small text-primary">Total SKKPd</p>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <p class="text-muted mb-1">Angkatan</p>
+                                            <p class="fw-medium mb-0"><?php echo $siswa['Angkatan']; ?></p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -432,7 +391,7 @@ if (isset($_GET['page'])) {
                         $valid_certs = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM sertifikat WHERE NIS='$nis' AND Status='Valid'"));
                         $invalid_certs = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM sertifikat WHERE NIS='$nis' AND Status='Tidak Valid'"));
                         $pending_certs = mysqli_num_rows(mysqli_query($koneksi, "SELECT * FROM sertifikat WHERE NIS='$nis' AND Status='Menunggu'"));
-
+                        
                         $stat_cards = [
                             ['title' => 'Sertifikat Valid', 'count' => $valid_certs, 'icon' => 'check-circle-fill', 'color' => 'success'],
                             ['title' => 'Menunggu Validasi', 'count' => $pending_certs, 'icon' => 'clock-fill', 'color' => 'warning'],
@@ -467,8 +426,55 @@ if (isset($_GET['page'])) {
                 </div>
             </main>
 
+            <style>
+            .dashboard-main {
+                background: #f8f9fa;
+            }
 
-    <?php
+            .stats-icon {
+                width: 60px;
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .hover-card {
+                transition: transform 0.2s;
+            }
+
+            .hover-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .custom-header {
+                background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+                padding: 1.5rem;
+                border-radius: 0.5rem 0.5rem 0 0;
+            }
+
+            .header-avatar-wrapper {
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .header-avatar {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: white;
+            }
+            </style>
+        <?php
         }
     }
     ?>

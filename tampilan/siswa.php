@@ -19,14 +19,21 @@ if (isset($_GET['NIS'])) {
     }
 }
 
-// Search functionality
+// Enhanced search functionality
 $search_condition = "";
 if (isset($_GET['search']) && !empty($_GET['search'])) {
     $search = mysqli_real_escape_string($koneksi, $_GET['search']);
-    $search_condition = "WHERE siswa.Nama_Siswa LIKE '%$search%' OR siswa.NIS LIKE '%$search%'";
+    $search_condition = "WHERE siswa.NIS LIKE '%$search%' 
+                        OR siswa.Nama_Siswa LIKE '%$search%'
+                        OR siswa.No_Absen LIKE '%$search%'
+                        OR siswa.No_Telp LIKE '%$search%'
+                        OR siswa.Email LIKE '%$search%'
+                        OR siswa.Kelas LIKE '%$search%'
+                        OR siswa.Angkatan LIKE '%$search%'
+                        OR jurusan.Jurusan LIKE '%$search%'";
 }
 
-// Modified query with search
+// Single query for all student data
 $data_siswa = mysqli_query(
     $koneksi,
     "SELECT siswa.*, jurusan.Jurusan 
@@ -37,7 +44,7 @@ $data_siswa = mysqli_query(
 );
 ?>
 <style>
-    .card-header .input-group .form-control {
+    <?php include '../css/style_siswa.css'; ?>.card-header .input-group .form-control {
         background-color: rgba(255, 255, 255, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.2);
         color: white;
@@ -65,7 +72,81 @@ $data_siswa = mysqli_query(
     }
 </style>
 
-<link rel="stylesheet" href="../css/style_siswa.css">
+<!-- Updated search styling -->
+<style>
+    .search-wrapper {
+        position: relative;
+        margin-top: 1.5rem;
+    }
+
+    .search-container {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        padding: 5px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-bar {
+        background: transparent !important;
+        border: none !important;
+        color: white !important;
+        padding: 12px 20px;
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .search-bar:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .search-bar::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .search-button {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        border-radius: 50px;
+        padding: 10px 25px;
+        color: white;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .search-button:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: translateY(-1px);
+    }
+
+    .search-icon {
+        margin-right: 8px;
+    }
+
+    .no-results {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        margin-top: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .no-results i {
+        font-size: 3rem;
+        color: #6c757d;
+        margin-bottom: 1rem;
+    }
+
+    .no-results h5 {
+        color: #343a40;
+        margin-bottom: 0.5rem;
+    }
+
+    .no-results p {
+        color: #6c757d;
+    }
+</style>
 
 <div class="container-fluid dashboard-container py-4 px-4">
 
@@ -86,18 +167,20 @@ $data_siswa = mysqli_query(
                         </a>
                     </div>
 
-                    <!-- Search Bar -->
-                    <div class="mt-3">
+                    <!-- Updated search form -->
+                    <div class="search-wrapper">
                         <form method="GET" action="">
                             <input type="hidden" name="page" value="siswa">
-                            <div class="input-group">
+                            <div class="input-group search-container">
                                 <input type="text"
-                                    class="form-control"
-                                    placeholder="Cari siswa berdasarkan nama atau NIS..."
+                                    class="form-control search-bar"
+                                    placeholder="Cari berdasarkan NIS, nama, kelas, atau info lainnya..."
                                     name="search"
-                                    value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>">
-                                <button class="btn btn-light" type="submit">
-                                    <i class="bi bi-search"></i>
+                                    value="<?php echo isset($_GET['search']) ? htmlspecialchars($_GET['search']) : ''; ?>"
+                                    autocomplete="off">
+                                <button class="btn search-button" type="submit">
+                                    <i class="bi bi-search search-icon"></i>
+                                    Cari
                                 </button>
                             </div>
                         </form>
@@ -105,18 +188,18 @@ $data_siswa = mysqli_query(
                 </div>
             </div>
 
+            <!-- No results message -->
+            <?php if (mysqli_num_rows($data_siswa) == 0) : ?>
+                <div class="no-results">
+                    <i class="bi bi-search"></i>
+                    <h5>Tidak ada hasil yang ditemukan</h5>
+                    <p>Coba gunakan kata kunci yang berbeda</p>
+                </div>
+            <?php endif; ?>
+
             <!-- Cards Grid -->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php
-                // Query to get all student data (sumpah ni gak beraturan cok )
-                $data_siswa = mysqli_query(
-                    $koneksi,
-                    "SELECT siswa.*, jurusan.Jurusan 
-                     FROM siswa 
-                     INNER JOIN jurusan ON siswa.Id_Jurusan = jurusan.Id_Jurusan 
-                     ORDER BY siswa.NIS ASC"
-                );
-
                 while ($data = mysqli_fetch_assoc($data_siswa)) { ?>
                     <!-- main col for my card -->
                     <div class="col-12">
@@ -179,12 +262,12 @@ $data_siswa = mysqli_query(
                                 <div class=" d-flex justify-content-end gap-2">
 
                                     <!-- View Details Button -->
-                                    <button type="button"
+                                    <!-- <button type="button"
                                         class="btn btn-info btn-sm text-white view-details"
                                         data-bs-toggle="modal"
                                         data-bs-target="#detailModal<?php echo $data['NIS']; ?>">
                                         <i class="bi bi-eye-fill me-1"></i>Details
-                                    </button>
+                                    </button> -->
 
                                     <!-- Edit Button -->
                                     <a href="dashboard.php?page=ubah_siswa&NIS=<?php echo $data['NIS']; ?>"

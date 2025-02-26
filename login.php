@@ -1,51 +1,68 @@
 <?php
-
+// Include database connection file
 include 'koneksi.php';
+
+// Check if login form is submitted
 if (isset($_POST['submit_login'])) {
+    // Get username and password from form
     $user = $_POST['username'];
     $pass = $_POST['password'];
 
-    // Check operator login
+    // Query to check if user exists as operator
+    // Searches in pengguna table where username matches input
     $cek_operator = mysqli_query($koneksi, "SELECT username, Password FROM pengguna WHERE username='$user'");
     $data_operator = mysqli_fetch_assoc($cek_operator);
 
-    // Check student login
+    // Query to check if user exists as student
+    // Searches in pengguna table where NIS (student ID) matches input
     $cek_siswa = mysqli_query($koneksi, "SELECT NIS, Password FROM pengguna WHERE NIS='$user'");
     $data_siswa = mysqli_fetch_assoc($cek_siswa);
 
     // Password Hashing Generation - Comment this when not generating hash
     // echo $enkrip = password_hash($pass, PASSWORD_DEFAULT);
 
-    // Login Authentication - Uncomment this for normal login
+    // Login Authentication Logic
+    // First checks if user is an operator
     if (mysqli_num_rows($cek_operator) > 0) {
+        // Verify password for operator
         if (password_verify($pass, $data_operator['Password'])) {
             $user_operator = $data_operator['username'];
+            // Get operator's full name from operator table
             $nama_operator = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT Nama_Lengkap FROM operator WHERE username='$user_operator'"));
 
-            // Set cookies
+            // Set cookies for operator session
             setcookie('username', $data_operator['username'], time() + (60 * 60 * 24 * 7), '/');
             setcookie('Nama_Lengkap', $nama_operator['Nama_Lengkap'], time() + (60 * 60 * 24 * 7), '/');
             setcookie('level_user', 'operator', time() + (60 * 60 * 24 * 7), '/');
 
-            echo "<script>alert('Login Berhasil');window.location.href='view/dashboard.php?page=siswa'</script>";
+            // Redirect to dashboard on successful login
+            echo "<script>alert('Login Berhasil');window.location.href='tampilan/dashboard.php?page=siswa'</script>";
         } else {
+            // Password doesn't match
             echo "<script>alert('Password salah!');</script>";
         }
-    } elseif (mysqli_num_rows($cek_siswa) > 0) {
+    } 
+    // Check if user is a student
+    elseif (mysqli_num_rows($cek_siswa) > 0) {
+        // Verify password for student
         if (password_verify($pass, $data_siswa['Password'])) {
             $user_siswa = $data_siswa['NIS'];
+            // Get student's name from siswa table
             $nama_siswa = mysqli_fetch_assoc(mysqli_query($koneksi, "SELECT Nama_Siswa FROM siswa WHERE NIS='$user_siswa'"));
 
-            // Set cookies
+            // Set cookies for student session
             setcookie('NIS', $data_siswa['NIS'], time() + (60 * 60 * 24 * 7), '/');
             setcookie('level_user', 'siswa', time() + (60 * 60 * 24 * 7), '/');
             setcookie('Nama_Lengkap', $nama_siswa['Nama_Siswa'], time() + (60 * 60 * 24 * 7), '/');
 
-            echo "<script>alert('Login Berhasil');window.location.href='view/dashboard.php?page=siswa'</script>";
+            // Redirect to dashboard on successful login
+            echo "<script>alert('Login Berhasil');window.location.href='tampilan/dashboard.php?page=siswa'</script>";
         } else {
+            // Password doesn't match
             echo "<script>alert('Gagal login, Password salah!');window.location.href='login.php'</script>";
         }
     } else {
+        // User not found in database
         echo "<script>alert('Gagal login,Username atau password salah!');window.location.href='login.php'</script>";
     }
 }

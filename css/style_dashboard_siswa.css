@@ -1,0 +1,46 @@
+.dashboard-main {
+  background: #f8f9fa;
+}
+
+.stats-icon {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hover-card {
+  transition: transform 0.2s;
+}
+
+.hover-card:hover {
+  transform: translateY(-5px);
+}
+
+.custom-header {
+  background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+  padding: 1.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.header-avatar-wrapper {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-avatar {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+}
