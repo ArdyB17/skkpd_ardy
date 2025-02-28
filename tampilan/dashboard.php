@@ -60,7 +60,11 @@ if (isset($_GET['page'])) {
 
             // operator section
         case 'operator':
-            $title = 'Data Operator';
+            $title = 'Operator';
+            break;
+
+        case 'tambah_operator':
+            $title = 'Tambah Operator Baru';
             break;
     }
 }
@@ -74,12 +78,11 @@ if (isset($_GET['page'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Stylesheets -->
-
-
     <link rel="stylesheet" href="../bootstrap/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- another important link -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -87,12 +90,15 @@ if (isset($_GET['page'])) {
 </head>
 
 <style>
-    <?php include '../css/style_dashboard.css'; ?>
+    <?php include '../css/style_dashboard.css'; ?><?php include '../css/style_dashboard_siswa.css'; ?>
 </style>
 
 <body>
 
-    <!-- super cool aesthetic Navbar (trust me) -->
+    <!-- /*=============================================================================
+    * NAVIGATION BAR SECTION
+    *============================================================================*/ -->
+
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <?php if ($_COOKIE['level_user'] == 'operator'): ?>
@@ -204,9 +210,8 @@ if (isset($_GET['page'])) {
         </div>
     </nav>
 
-
-    <!-- Main Content -->
     <?php
+
     if (isset($_GET['page'])) {
         switch ($_GET['page']) {
 
@@ -261,6 +266,10 @@ if (isset($_GET['page'])) {
                 include 'operator.php';
                 break;
 
+            case 'tambah_operator':
+                include '../tambah/tambah_operator.php';
+                break;
+
             case 'ganti_password':
                 include '../ubah/ganti_password.php';
                 break;
@@ -284,10 +293,16 @@ if (isset($_GET['page'])) {
         if ($_COOKIE['level_user'] == 'operator') {
             // Operator Landing Page Content (existing content)
     ?>
-            <!-- Landing Page Content for Operator -->
+            <?php
+            /*=============================================================================
+            * OPERATOR DASHBOARD VIEW
+            * Contains welcome message, statistics, and system overview
+            *============================================================================*/
+            ?>
             <main>
                 <!-- Enhanced Hero Section -->
-                <section class="hero-section position-relative">
+
+                <!-- <section class="hero-section position-relative">
                     <div class="container">
                         <div class="row align-items-center min-vh-75">
                             <div class="col-lg-6 animate-fadeInUp">
@@ -315,68 +330,532 @@ if (isset($_GET['page'])) {
                             </div>
                         </div>
                     </div>
+                </section> -->
+
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <!-- Personalized welcome message with operator name -->
+                    <div class="container">
+                        <div class="welcome-message">
+                            👋 Selamat datang, <?php echo $_COOKIE['Nama_Lengkap']; ?>!
+                        </div>
+                        <div class="welcome-subtitle">
+                            Berikut adalah ringkasan data SKKPd hari ini
+                        </div>
+                    </div>
                 </section>
 
-                <!-- [Rest of the operator content remains the same...] -->
+
+                <!-- /*=============================================================================
+                * STATISTICS CARDS
+                * Display key metrics: students, departments, activities, certificates
+                *============================================================================*/ -->
+
+                <!-- Statistics Section -->
+                <div class="container mb-1">
+
+                    <div class="stats-grid">
+                        <!-- Students Stats -->
+                        <div class="stats-card shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stats-icon-box stats-bg-primary me-3">
+                                    <i class="bi bi-people-fill"></i>
+                                </div>
+                                <div class="stats-content">
+                                    <?php
+                                    $total_siswa = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM siswa"))[0];
+                                    ?>
+                                    <h3><?php echo $total_siswa; ?></h3>
+                                    <p>Total Siswa</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Departments Stats -->
+                        <div class="stats-card shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stats-icon-box stats-bg-success me-3">
+                                    <i class="bi bi-diagram-3-fill"></i>
+                                </div>
+                                <div class="stats-content">
+                                    <?php
+                                    $total_jurusan = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM jurusan"))[0];
+                                    ?>
+                                    <h3><?php echo $total_jurusan; ?></h3>
+                                    <p>Total Jurusan</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activities Stats -->
+                        <div class="stats-card shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stats-icon-box stats-bg-warning me-3">
+                                    <i class="bi bi-calendar-event-fill"></i>
+                                </div>
+                                <div class="stats-content">
+                                    <?php
+                                    $total_kegiatan = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan"))[0];
+                                    ?>
+                                    <h3><?php echo $total_kegiatan; ?></h3>
+                                    <p>Total Kegiatan</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Certificates Stats -->
+                        <div class="stats-card shadow-sm">
+                            <div class="card-body d-flex align-items-center">
+                                <div class="stats-icon-box stats-bg-info me-3">
+                                    <i class="bi bi-award-fill"></i>
+                                </div>
+                                <div class="stats-content">
+                                    <?php
+                                    $total_sertifikat = mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(*) as total FROM sertifikat"))[0];
+                                    ?>
+                                    <h3><?php echo $total_sertifikat; ?></h3>
+                                    <p>Total Sertifikat</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- /*=============================================================================
+                    * ANALYTICS CHARTS SECTION
+                    * Visual representation of system data using Chart.js
+                    *============================================================================*/ -->
+
+                    <div class="charts-grid">
+                        <!-- Certificate Statistics Chart -->
+                        <!-- <div class="chart-card">
+                            <div class="chart-header">
+                                <h5>Statistik Sertifikat</h5>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="certificateStats"></canvas>
+                            </div>
+                        </div> -->
+
+                        <!-- Activity Statistics Chart -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h5>Statistik Kategori Kegiatan</h5>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="activityStats"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Certificate Status Distribution Chart -->
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <h5>Status Sertifikat</h5>
+                            </div>
+                            <div class="chart-body">
+                                <canvas id="certificateStatus"></canvas>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <!-- /*=============================================================================
+                * CHARTS INITIALIZATION
+                * JavaScript for initializing and configuring Chart.js
+                *============================================================================*/ -->
+
+                <script>
+                    // Certificate Stats Chart
+                    // const certStats = document.getElementById('certificateStats');
+                    // new Chart(certStats, {
+                    //     type: 'bar',
+                    //     data: {
+                    //         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    //         datasets: [{
+                    //             label: 'Sertifikat Diupload',
+                    //             data: [12, 19, 3, 5, 2, 3],
+                    //             backgroundColor: '#4e73df'
+                    //         }]
+                    //     },
+                    //     options: {
+                    //         responsive: true,
+                    //         maintainAspectRatio: false
+                    //     }
+                    // });
+
+                    // Certificate Status Chart
+                    const certStatus = document.getElementById('certificateStatus');
+                    new Chart(certStatus, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Valid', 'Pending', 'Tidak Valid'],
+                            datasets: [{
+                                data: [
+                                    <?php echo mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(*) FROM sertifikat WHERE Status='Valid'"))[0]; ?>,
+                                    <?php echo mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(*) FROM sertifikat WHERE Status='Menunggu Validasi'"))[0]; ?>,
+                                    <?php echo mysqli_fetch_array(mysqli_query($koneksi, "SELECT COUNT(*) FROM sertifikat WHERE Status='Tidak Valid'"))[0]; ?>
+                                ],
+                                backgroundColor: ['#10b981', '#f59e0b', '#ef4444']
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+
+                    // Activity Statistics Chart
+                    const activityStats = document.getElementById('activityStats');
+
+                    // Fetch activity data from database
+                    <?php
+                    $activity_query = mysqli_query($koneksi, "
+                        SELECT k.Sub_Kategori, COUNT(kg.Id_Kegiatan) as total_kegiatan 
+                        FROM kategori k
+                        LEFT JOIN kegiatan kg ON k.Id_Kategori = kg.Id_Kategori
+                        GROUP BY k.Sub_Kategori
+                        ORDER BY k.Sub_Kategori
+                    ");
+
+                    $labels = [];
+                    $data = [];
+
+                    while ($row = mysqli_fetch_assoc($activity_query)) {
+                        $labels[] = $row['Sub_Kategori'];
+                        $data[] = $row['total_kegiatan'];
+                    }
+                    ?>
+
+                    new Chart(activityStats, {
+                        type: 'bar',
+                        data: {
+                            labels: <?php echo json_encode($labels); ?>,
+                            datasets: [{
+                                label: 'Jumlah Kegiatan',
+                                data: <?php echo json_encode($data); ?>,
+                                backgroundColor: [
+                                    'rgba(59, 130, 246, 0.8)', // Blue
+                                    'rgba(16, 185, 129, 0.8)', // Green
+                                    'rgba(245, 158, 11, 0.8)', // Orange
+                                    'rgba(99, 102, 241, 0.8)' // Indigo
+                                ],
+                                borderColor: [
+                                    'rgb(59, 130, 246)',
+                                    'rgb(16, 185, 129)',
+                                    'rgb(245, 158, 11)',
+                                    'rgb(99, 102, 241)'
+                                ],
+                                borderWidth: 1,
+                                borderRadius: 8,
+                                maxBarThickness: 50
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                    padding: 12,
+                                    titleFont: {
+                                        size: 14,
+                                        weight: 'bold'
+                                    },
+                                    bodyFont: {
+                                        size: 13
+                                    },
+                                    bodySpacing: 4,
+                                    caretSize: 6,
+                                    cornerRadius: 8
+                                }
+                            },
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    grid: {
+                                        display: true,
+                                        drawBorder: false,
+                                        color: 'rgba(0, 0, 0, 0.05)'
+                                    },
+                                    ticks: {
+                                        font: {
+                                            size: 12
+                                        },
+                                        color: '#64748b'
+                                    }
+                                },
+                                x: {
+                                    grid: {
+                                        display: false
+                                    },
+                                    ticks: {
+                                        font: {
+                                            size: 12
+                                        },
+                                        color: '#64748b'
+                                    }
+                                }
+                            },
+                            animation: {
+                                duration: 2000,
+                                easing: 'easeOutQuart'
+                            }
+                        }
+                    });
+
+                    // Lazy Loading Implementation
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const lazyElements = document.querySelectorAll('.lazy-load');
+
+                        const lazyLoadObserver = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('loaded');
+                                }
+                            });
+                        });
+
+                        lazyElements.forEach(element => {
+                            lazyLoadObserver.observe(element);
+                        });
+                    });
+
+                    // Enhanced Charts Configuration
+                    const categoryStats = {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Akademik', 'Organisasi', 'Prestasi', 'Keterampilan'],
+                            datasets: [{
+                                data: [30, 25, 20, 25],
+                                backgroundColor: [
+                                    '#3b82f6',
+                                    '#10b981',
+                                    '#f59e0b',
+                                    '#6366f1'
+                                ]
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }
+                        }
+                    };
+
+                    // Initialize charts when DOM is loaded
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const ctx = document.getElementById('categoryStats').getContext('2d');
+                        new Chart(ctx, categoryStats);
+                    });
+                </script>
+
+                <!-- /*=============================================================================
+                * SYSTEM OVERVIEW SECTION
+                * Information about SKKPD features and functionality
+                *============================================================================*/ -->
+
+                <section id="about-skkpd" class="overview-section py-5">
+
+                    <div class="container">
+                        <!-- overview text -->
+                        <div class="row justify-content-center mb-1">
+                            <div class="col-lg-8 text-center">
+                                <div class="title-wrapper">
+
+                                    <h2 class="section-title display-4 mb-3 fw-bold ">
+                                        Memahami <span class="highlight">SKKPd</span>
+                                    </h2>
+                                    <p class="lead text-secondary mb-4">
+                                        Sistem penilaian modern berbasis poin untuk mengembangkan
+                                        <span class="text-primary fw-semibold">soft skills</span> dan
+                                        <span class="text-primary fw-semibold">kompetensi</span> siswa
+                                    </p>
+                                    <div class="title-decoration mx-auto mb-4"></div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row g-4">
+                            <!-- Card 1 -->
+                            <div class="col-md-6 col-lg-3">
+                                <div class="feature-card">
+                                    <div class="card-content">
+                                        <div class="feature-emoji">🏆</div>
+                                        <h5>Poin Prestasi</h5>
+                                        <p>Sistem kredit poin untuk mengukur dan menghargai prestasi akademik dan non-akademik siswa.</p>
+                                        <div class="card-overlay"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 2 -->
+                            <div class="col-md-6 col-lg-3">
+                                <div class="feature-card">
+                                    <div class="card-content">
+                                        <div class="feature-emoji">⚡</div>
+                                        <h5>Pengembangan Skill</h5>
+                                        <p>Mendorong pengembangan soft skills, leadership, dan kesiapan kerja industri.</p>
+                                        <div class="card-overlay"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 3 -->
+                            <div class="col-md-6 col-lg-3">
+                                <div class="feature-card">
+                                    <div class="card-content">
+                                        <div class="feature-emoji">📈</div>
+                                        <h5>Tracking Progress</h5>
+                                        <p>Pemantauan kemajuan siswa secara real-time melalui sistem manajemen poin digital.</p>
+                                        <div class="card-overlay"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card 4 -->
+                            <div class="col-md-6 col-lg-3">
+                                <div class="feature-card">
+                                    <div class="card-content">
+                                        <div class="feature-emoji">🎯</div>
+                                        <h5>Sertifikasi</h5>
+                                        <p>Validasi pencapaian melalui sertifikat digital yang diakui industri.</p>
+                                        <div class="card-overlay"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </section>
 
             </main>
+
         <?php
         } else {
-            // Student Landing Page Content
+            // /*=============================================================================
+            // * STUDENT DASHBOARD VIEW
+            // * Personal information, credit points, and certificate status
+            // *============================================================================*/
         ?>
             <main class="dashboard-main py-4">
                 <div class="container">
                     <!-- Profile Section -->
                     <div class="row justify-content-center mb-4">
-                        <div class="col-12 col-lg-10">
+                        <div class="col-12 col-lg-8">
                             <div class="card h-100 border-0 shadow-sm hover-card">
-                                <div class="card-header custom-header border-0">
-                                    <div class="d-flex align-items-center">
+
+                                <div class="card-header custom-header border-0 position-relative overflow-hidden">
+                                    <div class="header-background"></div>
+                                    <div class="d-flex align-items-center position-relative z-1 p-4">
+                                        <!-- Avatar Section -->
                                         <div class="header-avatar-wrapper">
                                             <div class="header-avatar">
-                                                <?php echo strtoupper(substr($_COOKIE['Nama_Lengkap'], 0, 1)); ?>
+                                                <div class="avatar-inner">
+                                                    <?php
+                                                    $initials = explode(' ', $_COOKIE['Nama_Lengkap']);
+                                                    $display = '';
+                                                    if (count($initials) >= 2) {
+                                                        $display = strtoupper(substr($initials[0], 0, 1) . substr($initials[1], 0, 1));
+                                                    } else {
+                                                        $display = strtoupper(substr($_COOKIE['Nama_Lengkap'], 0, 2));
+                                                    }
+                                                    echo $display;
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="ms-3 text-white">
-                                            <h5 class="mb-1 fw-bold"><?php echo $_COOKIE['Nama_Lengkap']; ?></h5>
-                                            <div class="subtitle">
-                                                <span class="badge bg-light bg-opacity-25 border-0">
-                                                    NIS: <?php echo $_COOKIE['NIS']; ?>
+
+                                        <!-- User Info Section -->
+                                        <div class="user-info ms-4">
+                                            <h4 class="mb-1 fw-bold text-white">
+                                                <?php echo $_COOKIE['Nama_Lengkap']; ?>
+                                            </h4>
+                                            <div class="d-flex align-items-center gap-3">
+                                                <span class="user-badge">
+                                                    <i class="bi bi-person-badge me-2"></i>
+                                                    <?php echo $_COOKIE['NIS']; ?>
                                                 </span>
+                                                <!-- <span class="user-role">
+                                                    <i class="bi bi-mortarboard-fill me-2"></i>
+                                                    Siswa
+                                                </span> -->
                                             </div>
-                                        </div>
-                                        <div class="ms-auto text-white">
-                                            <h3 class="mb-0 fw-bold">15</h3>
-                                            <small class="text-white-50">Total Poin SKKPd</small>
                                         </div>
                                     </div>
                                 </div>
 
                                 <?php
-                                // Fetch student data
+                                // Fetch student data with credit points
                                 $nis = $_COOKIE['NIS'];
-                                $query = mysqli_query($koneksi, "SELECT siswa.*, jurusan.Jurusan 
-                                                               FROM siswa 
-                                                               INNER JOIN jurusan ON siswa.Id_Jurusan = jurusan.Id_Jurusan 
-                                                               WHERE siswa.NIS = '$nis'");
+                                $query = mysqli_query($koneksi, "SELECT s.*, j.Jurusan, 
+                                                               (SELECT COALESCE(SUM(k.Angka_Kredit), 0)
+                                                                FROM sertifikat srt 
+                                                                JOIN kegiatan k ON srt.Id_Kegiatan = k.Id_Kegiatan 
+                                                                WHERE srt.NIS = s.NIS AND srt.Status = 'Valid') as total_kredit
+                                                               FROM siswa s 
+                                                               INNER JOIN jurusan j ON s.Id_Jurusan = j.Id_Jurusan 
+                                                               WHERE s.NIS = '$nis'");
                                 $siswa = mysqli_fetch_assoc($query);
                                 ?>
 
-                                <div class="card-body">
-                                    <div class="row g-3">
+                                <div class="info-section">
+                                    <div class="row g-4">
+                                        <!-- Left Column -->
                                         <div class="col-md-6">
-                                            <p class="text-muted mb-1">No. Absen</p>
-                                            <p class="fw-medium mb-3"><?php echo $siswa['No_Absen']; ?></p>
+                                            <div class="info-group">
+                                                <div class="info-label"><i class="bi bi-person-badge me-2"></i>No. Absen</div>
+                                                <div class="info-value"><?php echo $siswa['No_Absen']; ?></div>
+                                            </div>
 
-                                            <p class="text-muted mb-1">Email</p>
-                                            <p class="fw-medium mb-3"><?php echo $siswa['Email']; ?></p>
+                                            <div class="info-group">
+                                                <div class="info-label"><i class="bi bi-envelope me-2"></i>Email</div>
+                                                <div class="info-value"><?php echo $siswa['Email']; ?></div>
+                                            </div>
+
+                                            <div class="info-group">
+                                                <div class="info-label"><i class="bi bi-telephone me-2"></i>Nomor Telepon</div>
+                                                <a href="https://wa.me/<?php echo preg_replace("/[^0-9]/", "", $siswa['No_Telp']); ?>"
+                                                    class="info-value contact-link" target="_blank">
+                                                    <i class="bi bi-whatsapp me-2"></i><?php echo $siswa['No_Telp']; ?>
+                                                </a>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <p class="text-muted mb-1">Jurusan</p>
-                                            <span class="badge bg-info mb-3"><?php echo $siswa['Jurusan']; ?> <?php echo $siswa['Kelas']; ?></span>
 
-                                            <p class="text-muted mb-1">Angkatan</p>
-                                            <p class="fw-medium mb-0"><?php echo $siswa['Angkatan']; ?></p>
+                                        <!-- Right Column -->
+                                        <div class="col-md-6">
+                                            <div class="info-group">
+                                                <div class="info-label"><i class="bi bi-mortarboard me-2"></i>Jurusan & Kelas</div>
+                                                <div class="badge bg-primary px-3 py-2">
+                                                    <?php echo $siswa['Jurusan']; ?> <?php echo $siswa['Kelas']; ?>
+                                                </div>
+                                            </div>
+
+                                            <div class="info-group">
+                                                <div class="info-label"><i class="bi bi-calendar3 me-2"></i>Angkatan</div>
+                                                <div class="info-value"><?php echo $siswa['Angkatan']; ?></div>
+                                            </div>
+
+                                            <div class="info-group credit-section">
+                                                <div class="info-label"><i class="bi bi-star me-2"></i>Total Kredit Point</div>
+                                                <div class="credit-display">
+                                                    <span class="credit-number"><?php echo $siswa['total_kredit']; ?></span>
+                                                    <span class="credit-total"> poin</span>
+                                                </div>
+
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -426,94 +905,38 @@ if (isset($_GET['page'])) {
                 </div>
             </main>
 
-            <style>
-                .dashboard-main {
-                    background: #f8f9fa;
-                }
-
-                .stats-icon {
-                    width: 60px;
-                    height: 60px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .hover-card {
-                    transition: transform 0.2s;
-                }
-
-                .hover-card:hover {
-                    transform: translateY(-5px);
-                }
-
-                .custom-header {
-                    background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-                    padding: 1.5rem;
-                    border-radius: 0.5rem 0.5rem 0 0;
-                }
-
-                .header-avatar-wrapper {
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.1);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .header-avatar {
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.5rem;
-                    font-weight: bold;
-                    color: white;
-                }
-            </style>
     <?php
         }
     }
     ?>
+
+    <!-- /*=============================================================================
+    * FOOTER SECTION
+    * Copyright information and developer credits
+    *============================================================================*/ -->
+
     <!-- Modern Footer -->
     <footer class="footer mt-auto py-3">
         <div class="container">
             <div class="row align-items-center justify-content-center text-center">
                 <div class="col-12">
-                    <p class="mb-0 text-muted">
-                        <small>
-                            &copy; <?php echo date('Y'); ?> SKKPD SMK TI Bali Global Denpasar
-                            <span class="mx-1">•</span>
-                            Dikembangkan oleh Ardy Berata
-                        </small>
+                    <div class="footer-divider mb-2"></div>
+                    <p class="mb-0" style="font-size: 0.75rem;">
+                        <span class="copyright-text">
+                            &copy; <?php echo date('Y'); ?> SKKPD Project
+                        </span>
+                        <span class="mx-1">•</span>
+                        <span class="credit-text">
+                            Dikembangkan oleh
+                            <a href="https://github.com/ArdyB17/skkpd_ardy" target="_blank" rel="noopener noreferrer" class="developer-link">Ardy Styles</a>
+                            dengan <span class="heart">♋</span>
+                        </span>
                     </p>
                 </div>
             </div>
         </div>
     </footer>
 
-    <style>
-        .footer {
-            background: #f8f9fa;
-            border-top: 1px solid rgba(0, 0, 0, .05);
-            font-size: 0.9rem;
-            position: relative;
-            margin-top: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .footer {
-                padding: 1rem 0;
-            }
-
-            .footer p {
-                font-size: 0.8rem;
-            }
-        }
-    </style>
     <!-- Scripts -->
     <script src="../bootstrap/bootstrap.js"></script>
 </body>
@@ -521,5 +944,6 @@ if (isset($_GET['page'])) {
 </html>
 
 <?php
+// Close database connection
 mysqli_close($koneksi);
 ?>
