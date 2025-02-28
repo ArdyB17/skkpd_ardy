@@ -100,6 +100,5 @@ Proyek ini dilisensikan di bawah MIT License - lihat file LICENSE untuk detail.
 
 ## Credit
 
-- SMK TI Bali Global Denpasar
-- Tim Pengembang
-- Kontributor & Pemelihara
+- Pak Arie (you're goated pak 🙏🏻)
+- Ardy Berata
