@@ -101,4 +101,4 @@ Proyek ini dilisensikan di bawah MIT License - lihat file LICENSE untuk detail.
 ## Credit
 
 - Pak Arie (you're goated pak 🙏🏻)
-- Ardy Berata
+- Ardy Berata (me ✌🏻🙂‍↔️)
